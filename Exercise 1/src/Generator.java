@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class Generator {
   File[] files;
 
+  Path pathFileOne = Paths.get("/Users/Pierre-Alexandre/Documents/Classes/Information Retrivial/Exercise 1/./assets/student-1/episode4");
+
   Generator(File[] files){
     this.files = files;
   }

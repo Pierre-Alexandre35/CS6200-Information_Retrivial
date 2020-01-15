@@ -10,12 +10,19 @@ import java.util.Scanner;
 
 public class Driver {
 
+
+
+
   public static void main(String[] args) throws IOException {
+
+    Path pathFileOne = Paths.get("/Users/Pierre-Alexandre/Documents/Classes/Information Retrivial/Exercise 1/./assets/student-1/episode4");
+
     File[] files = new File("./assets/student-1").listFiles();
     Generator gene = new Generator(files);
     HashMap<Path, List<String>> result = gene.getEveryWords();
     Analyze sampleOne = new Analyze(result);
-    sampleOne.findAll("kill");
+    //sampleOne.getTermFrequency("kill");
+    sampleOne.getTermFrequencyLists(pathFileOne);
   }
 
 }
