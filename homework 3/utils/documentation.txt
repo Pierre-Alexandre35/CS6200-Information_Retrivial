@@ -1,0 +1,12 @@
+
+urllib2 is now depreciated instead use:
+import urllib.request
+
+
+get certificate for urllib:
+sudo /Applications/Python\ 3.6/Install\ Certificates.command
+
+
+
+raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
