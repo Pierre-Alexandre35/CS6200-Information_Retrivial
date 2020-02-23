@@ -1,0 +1,414 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<title>Hurricane KATRINA</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+<link href="/css/NHC.css?new2" rel="stylesheet" type="text/css"/>
+</head>
+<div class="skipheader">
+<a href="#contents"><img alt="Skip Navigation Links" border="0" height="1" src="/css/images/skipgraphic.gif" width="1"/></a>
+</div>
+<body>
+<!-- Top Menu Navigation Section -->
+<div class="altformatcenter">
+<div class="altformatcontent">
+<div class="altformat">
+<div class="format-type">
+<a href="/index.shtml">Home</a>
+</div>
+<div class="format-type">
+<a href="/mobile">Mobile Site</a>
+</div>
+<div class="format-type">
+<a href="?text">Text Version</a>
+</div>
+<div class="format-type">
+<a href="/aboutrss.shtml">RSS</a>
+</div>
+<div class="local-forecast">
+<form action="https://forecast.weather.gov/zipcity.php" id="getForecast" method="get" name="getForecast">
+<!--    <label for="inputstring">Local forecast by "City, St" or ZIP code</label> -->
+<input id="inputstring" name="inputstring" onclick="this.value=''" size="8" type="text" value="Enter City,St or ZIP code"/>
+<input id="btnSearch" name="btnSearch" type="submit" value="Go"/>
+</form>
+</div>
+<div class="forecast-description">
+<a href="http://www.weather.gov">Local Forecast</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Header Section -->
+<div class="header">
+<div class="header-content">
+<a class="header-noaa-icon" href="http://www.noaa.gov"><img alt="NOAA" src="/css/images/header-noaa.png" style="border:none"/></a>
+<a class="header-nws-icon" href="http://www.weather.gov"><img alt="NOAA" src="/css/images/header-nws.png" style="border:none"/></a>
+<a class="header-doc" href="http://www.commerce.gov"><img alt="United States Department of Commerce" src="/css/images/header_doc.png" style="border:none"/></a>
+<div class="header-center-text"><a class="header-center-text" href="/index.php">NATIONAL HURRICANE CENTER and<br/>CENTRAL PACIFIC HURRICANE CENTER</a></div>
+<div class="header-noaa-text"><a class="header-noaa-text" href="http://www.noaa.gov">National Oceanic and Atmospheric Administration</a></div>
+</div>
+</div>
+<div class="header-shadow"><div class="header-shadow-content"></div></div>
+<div class="center">
+<div class="content">
+<!-- Top Menu Content -->
+<div class="topnav">
+<ul id="topnav">
+<!-- Forecast Links -->
+<li>
+<div class="left-section-link" style="vertical-align:top">
+<a href="/cyclones">Analyses &amp; Forecasts</a>
+</div>
+<div class="drop">
+<ul>
+<li><a href="/cyclones">Tropical Cyclone Products</a></li>
+<li><a href="/gtwo.php">Tropical Weather Outlooks</a></li>
+<li><a href="/marine">Marine Products</a></li>
+<li><a href="/audio">Audio/Podcasts</a></li>
+<li><a href="/aboutrss.shtml">RSS Feeds</a></li>
+<li><a href="/gis/">GIS Products</a></li>
+<li><a href="/aboutalternate.shtml">Alternate Formats</a></li>
+<li><a href="/aboutnhcprod.shtml">Tropical Cyclone Product Descriptions</a></li>
+<li><a href="/abouttafbprod.shtml">Marine Product Descriptions</a></li>
+</ul>
+</div>
+</li>
+<!-- Forecast Links -->
+<li>
+<div class="pull-down-arrow">
+<a href="/cyclones">▾</a>
+</div>
+</li>
+<!-- Tools & Data -->
+<li>
+<div class="center-section-link">
+<a href="/analysis_tools.php">Data &amp; Tools</a>
+</div>
+<div class="drop">
+<ul>
+<li><a href="/satellite.php">Satellite Imagery</a></li>
+<li><a href="/radar.php">Radar Imagery</a></li>
+<li><a href="/recon.php">Aircraft Reconnaissance</a></li>
+<li><a href="/analysis_tools.php">Tropical Analysis Tools</a></li>
+<li><a href="/experimental/">Experimental Products</a></li>
+<li><a href="/gccalc.shtml">Lat/Lon Distance Calculator</a></li>
+<li><a href="/tracking_charts.shtml">Blank Tracking Maps</a></li>
+</ul>
+</div>
+</li>
+<li>
+<div class="pull-down-arrow">
+<a href="/data/">▾</a>
+</div>
+</li>
+<!-- Outreach & Education-->
+<li>
+<div class="center-section-link">
+<a href="/outreach/">Educational Resources</a>
+</div>
+<div class="drop">
+<ul>
+<li><a href="http://www.weather.gov/wrn/hurricane-preparedness">Be Prepared!<br/>NWS Hurricane<br/>Prep Week</a></li>
+<li><a href="http://www.nws.noaa.gov/om/hurricane/index.shtml">NWS Hurricane Safety</a></li>
+<li><a href="/outreach">Outreach Documents</a></li>
+<li><a href="/surge/">Storm Surge</a></li>
+<li><a href="/breakpoints/">Watch/Warning Breakpoints</a></li>
+<li><a href="/climo/">Climatology</a></li>
+<li><a href="/aboutnames.shtml">Tropical Cyclone Names</a></li>
+<li><a href="/aboutsshws.php">Wind Scale</a></li>
+<li><a href="/dcmi.shtml">Records and Facts</a></li>
+<li><a href="/outreach/history">Historical Hurricane Summaries</a></li>
+<li><a href="/modelsummary.shtml">Forecast Models</a></li>
+<li><a href="/aboutpubs.shtml">NHC Publications</a></li>
+<li><a href="/aboutgloss.shtml">NHC Glossary</a></li>
+<li><a href="/acronyms.shtml">Acronyms</a></li>
+<li><a href="/faq.shtml">Frequent Questions</a></li>
+</ul>
+</div>
+</li>
+<li>
+<div class="pull-down-arrow">
+<a href="/prepare/">▾</a>
+</div>
+</li>
+<!-- Archives -->
+<li>
+<div class="center-section-link">
+<a href="/data/">Archives</a>
+</div>
+<div class="drop">
+<ul>
+<li><a href="/archive/2019/">Tropical Cyclone Advisories</a></li>
+<li><a href="/archive/xgtwo/gtwo_archive.php">Tropical Weather Outlooks</a></li>
+<li><a href="/data/tcr/index.php">Tropical Cyclone Reports</a></li>
+<li><a href="/verification/">Tropical Cyclone Forecast Verification</a></li>
+<li><a href="/text/MIATWSAT.shtml">Atlantic Current Season Summary</a></li>
+<li><a href="/text/MIATWSEP.shtml">E. Pacific Current Season Summary</a></li>
+<li><a href="/text/HFOTWSCP.shtml">C. Pacific Current Season Summary</a></li>
+<li><a href="/newsarchive.shtml">NHC News Archive</a></li>
+<li><a href="/notices.shtml">Product &amp; Service Announcements</a></li>
+<li><a href="/data/">Other Archives: HURDAT, <br/>Track Maps, <br/>Marine Products,<br/>and more</a></li>
+</ul>
+</div>
+</li>
+<li>
+<div class="pull-down-arrow">
+<a href="/data/">▾</a>
+</div>
+</li>
+<!-- About NHC/CPHC -->
+<li>
+<div class="center-section-link">
+<a href="/aboutintro.shtml">About</a>
+</div>
+<div class="drop">
+<ul>
+<li><a href="/aboutintro.shtml">National Hurricane Center</a></li>
+<li><a href="/aboutcphc.php">Central Pacific<br/>Hurricane Center</a></li>
+<!--<li><a href="/mission.shtml">Mission & Vision</a></li>
+                  <li><a href="/aboutstaff.shtml">Staff</a></li>-->
+<li><a href="/aboutlibrary.php">Library</a></li>
+<!--<li><a href="/nhctour.shtml">Virtual Tour</a></li>
+                  <li><a href="/aboutvisitor.shtml">Visiting NHC</a></li>-->
+<li><a href="/contact.shtml">Contact Us</a></li>
+</ul>
+</div>
+</li>
+<li>
+<div class="pull-down-arrow">
+<a href="/aboutintro.shtml">▾</a>
+</div>
+</li>
+<!-- Gov Search -->
+<li>
+<div class="right-section-link">
+<a href="http://www.weather.gov/search">Search</a>
+</div>
+<div class="dropsearch">
+<div class="site-search">
+<form action="http://search.usa.gov/search" method="get" style="margin-bottom: 0; margin-top: 0;">
+<input name="v:project" type="hidden" value="firstgov"/>
+<label for="query">Search For</label>
+<input id="query" name="query" size="12" type="text"/>
+<input type="submit" value="Go"/>
+<p>
+<input checked="checked" id="nws" name="affiliate" type="radio" value="nws.noaa.gov"/>
+<label class="search-scope" for="nws">NWS</label>
+<input id="noaa" name="affiliate" type="radio" value="noaa.gov"/>
+<label class="search-scope" for="noaa">All NOAA</label>
+</p>
+</form>
+</div>
+</div>
+</li>
+<li>
+<div class="pull-down-arrow">
+<a href="http://www.weather.gov/search">▾</a>
+</div>
+</li>
+</ul><!-- End of top nav ul -->
+</div><!-- End of topnav content div -->
+<a id="contents" name="contents"></a>
+<!-- Message for all pages -->
+<!--
+        <br>
+        <table style="border:1px solid red; font-weight:normal; width:100%; padding-top:2px; padding-bottom:2px; padding-left:5px; padding-right:5px;">
+        <tr><td>
+        <div class="tiny" style="text-align:left;">The U.S. Federal Government is currently closed. However, because the information this site 
+provides is necessary to protect life and property, it will be updated and maintained during the Federal Government shutdown. <b>For critical weather
+information, please visit <a href="http://www.weather.gov">www.weather.gov</a>. Visit <a href="https://www.noaa.gov">NOAA.gov</a> to learn more.</b>
+        </div>
+        </td></tr>
+        </table>
+        -->
+<!-- include Google Analytics tracking -->
+<!-- BEGIN Google Analytics code -->
+<script async="true" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NHC&amp;pua=ua-49829254-1" type="text/javascript">
+</script>
+<!-- END Google Analytics code -->
+<a name="contents"></a><br/>
+<!-- START OF CONTENT -->
+<h2 align="center" style="width: 100%;">Hurricane KATRINA</h2>
+<hr align="left" noshade="" width="100%"/>
+<pre>
+ZCZC MIATCDAT2 ALL
+TTAA00 KNHC DDHHMM
+HURRICANE KATRINA DISCUSSION NUMBER  14
+NWS TPC/NATIONAL HURRICANE CENTER MIAMI FL
+5 PM EDT FRI AUG 26 2005
+ 
+MOST RECENT REPORTS FROM AN AIR FORCE HURRICANE HUNTER AIRCRAFT
+INDICATE THE CENTRAL PRESSURE HAS DROPPED TO 965 MB...BUT THE
+FLIGHT-LEVEL WINDS HAVE ONLY INCREASED TO 94 KT AT 700 MB...WHICH
+IS ABOUT AN 85-KT SURFACE WIND. A 1701Z DROPSONDE IN THE NORTHEAST
+QUADRANT REPORTED 85 KT SURFACE WINDS. THEREFORE...THE INITIAL
+INTENSITY IS HELD AT 85 KT FOR THIS ADVISORY...EVEN THOUGH THE
+CENTRAL PRESSURE SUPPORTS ABOUT 95-KT SURFACE WINDS. THE EYEWALL IN
+THE NORTHWEST QUADRANT HAS REMAINED OPEN...PROBABLY DUE TO DRY AIR
+ENTRAINMENT...AND THIS MAY PARTLY EXPLAIN THE DIFFERENCE BETWEEN
+THE OBSERVED WINDS AND WHAT THE CENTRAL PRESSURE TYPICALLY
+SUPPORTS.
+
+THE INITIAL MOTION IS WEST-SOUTHWESTWARD...OR 255 DEGRESS...AT 07
+KT. KATRINA REMAINS CAUGHT BETWEEN THE NORTHEASTERLY FLOW ON THE
+WEST SIDE OF AN INVERTED TROUGH OVER THE WESTERN CARIBBEAN SEA AND
+THE NORTHEASTERLY FLOW IN THE SOUTHEAST QUADRANT OF THE SUBTROPICAL
+RIDGE LOCATED TO THE NORTH AND NORTHWEST OF KATRINA. BOTH THE RIDGE
+AND TROUGH ARE FORECAST TO SLOWLY WEAKEN OVER THE NEXT 12-24 HOURS
+...WHICH ALLOW THE HURRICANE TO TURN MORE WESTWARD...AND MOST OF
+THE NHC MODEL GUIDANCE AGREES ON THAT SCENARIO. AFTER 24 HOURS...
+THE MODELS ARE IN GENERAL AGREEMENT ON A SHORTWAVE TROUGH CURRENTLY
+OVER THE NORTHERN AND CENTRAL PLAINS STATES TO GRADUALLY DIG
+SOUTHEASTWARD TOWARD THE CENTRAL AND WESTERN GULF OF MEXICO AND
+ERODE THE RIDGE...WHICH ALLOWS KATRINA TO MOVE NORTHWARD BY 72
+HOURS. AS A RESULT...THE MODELS HAVE SHIFTED SIGNIFICANTLY WESTWARD
+AND ARE NOW IN BETTER AGREEMENT. THIS HAS RESULTED IN THE OFFICIAL
+FORECAST TRACK BEING SHIFTED ABOUT 150 NMI WEST OF THE PREVIOUS
+TRACK...ON THE EAST SIDE OF THE GUIDANCE ENVELOPE. HOWEVER...
+PROJECTED LANDFALL IS STILL ABOUT 72 HOURS AWAY...SO FURTHER
+MODIFICATIONS IN THE FORECAST TRACK ARE POSSIBLE.
+ 
+KATRINA IS EXPECTED TO BE MOVING OVER THE GULF LOOP CURRENT AFTER 36
+HOURS...WHICH WHEN COMBINED WITH DECREASING VERTICAL SHEAR...SHOULD
+ALLOW THE HURRICANE TO REACH CATEGORY FOUR STATUS BEFORE LANDFALL
+OCCURS. THIS IS CONSISTENT WITH THE SHIPS AND GFDL MODELS...WHICH
+BRING KATRINA UP TO 118 KT. THE FSU SUPERENSEMBLE MODEL IS MORE
+ROBUST AND BRINGS KATRINA UP TO 129 KT JUST BEFORE LANDFALL.
+ 
+FORECASTER STEWART
+ 
+FORECAST POSITIONS AND MAX WINDS
+ 
+INITIAL      26/2100Z 24.8N  82.9W    85 KT
+ 12HR VT     27/0600Z 24.9N  83.9W    90 KT
+ 24HR VT     27/1800Z 25.2N  85.1W    95 KT
+ 36HR VT     28/0600Z 25.8N  86.4W   100 KT
+ 48HR VT     28/1800Z 26.9N  87.7W   105 KT
+ 72HR VT     29/1800Z 30.0N  88.5W   115 KT
+ 96HR VT     30/1800Z 35.0N  86.5W    35 KT...INLAND
+120HR VT     31/1800Z 40.5N  79.0W    25 KT...DISSIPATING INLAND
+ 
+ 
+$$
+NNNN
+</pre>
+<!-- END OF CONTENT -->
+<br/><br/>
+<div class="footer">
+<div class="footer-content">
+<div class="footer-header">
+               Quick Links and Additional Resources<br/>
+</div>
+<div class="footer-column">
+<a class="footer-column-head" href="/cyclones/">Tropical Cyclone Forecasts</a><br/>
+<a href="/cyclones">Tropical Cyclone Advisories</a><br/>
+<a href="/gtwo.php">Tropical Weather Outlook</a><br/>
+<a href="/audio">Audio/Podcasts</a><br/>
+<a href="/aboutnhcprod.shtml">About Advisories</a><br/>
+<br/>
+<a class="footer-column-head" href="/marine">Marine Forecasts</a><br/>
+<a href="/marine/offshores.php">Offshore Waters Forecasts</a><br/>
+<a href="/marine/grids.php">Gridded Forecasts</a><br/>
+<a href="/marine/graphicast.php">Graphicast</a><br/>
+<a href="/abouttafbprod.shtml">About Marine</a><br/>
+</div>
+<div class="footer-column">
+<a class="footer-column-head" href="/twitter.php">Social Media</a><br/>
+<a href="/nhcexit.php?outurl=http://www.facebook.com/NWSNHC"><img alt="Follow the National Hurricane Center on Facebook" height="15" src="/css/images/f_logo.png" width="15"/>   NHC on Facebook</a><br/>
+<a href="/twitter.php"><img alt="Follow the National Hurricane Center on Twitter" height="15" src="/css/images/twitter_logo.png" width="15"/>   Twitter</a><br/>
+<a href="/nhcexit.php?outurl=http://www.youtube.com/user/NWSNHC"><img alt="Subscribe the National Hurricane Center on YouTube" height="12" src="/css/images/youtube_logo.png" width="15"/>   YouTube</a><br/>
+<a href="/nhcexit.php?outurl=http://noaanhc.wordpress.com/"><img alt="Read the National Hurricane Center Inside the Eye blog on WordPress" height="15" src="/css/images/w_logo.png" width="15"/>   NHC Blog:<br/>      "Inside the Eye" </a><br/>
+<br/>
+<a class="footer-column-head" href="/prepare">Hurricane Preparedness</a><br/>
+<a href="https://www.weather.gov/safety/hurricane-plan">Preparedness Guide</a><br/>
+<a href="/prepare/hazards.php">Hurricane Hazards</a><br/>
+<a href="https://www.weather.gov/safety/hurricane-ww">Watches and Warnings</a><br/>
+<a href="/prepare/marine.php">Marine Safety</a><br/>
+<a href="http://www.ready.gov/hurricanes">Ready.gov Hurricanes</a> | <a href="https://www.listo.gov/es/huracanes">en Español</a><br/>
+<a href="https://www.weather.gov/wrn/force">Weather-Ready Nation</a><br/>
+<a href="http://www.fema.gov/emergency-management-agencies">Emergency Management Offices</a><br/>
+</div>
+<div class="footer-column">
+<!--   <a class='footer-column-head' href="/newsarchive.shtml">News</a><br>
+              <a href="/newsarchive.shtml">NHC News Archive</a><br>
+              <a href="/notices.shtml">Product and Service Announcements</a><br>
+              <a href="http://www.weather.gov/news">NWS News</a><br>
+              <br> -->
+<a class="footer-column-head" href="/aboutresearch.shtml">Research and Development</a><br/>
+<a href="http://www.aoml.noaa.gov/hrd/">NOAA Hurricane Research Division</a><br/>
+<a href="/jht/">Joint Hurricane Testbed</a><br/>
+<a href="/nhcexit.php?outurl=http://www.hfip.org">Hurricane Forecast Improvement Program</a><br/>
+<br/>
+<a class="footer-column-head" href="/aboutintro.shtml">Other Resources</a><br/>
+<a href="/qa/">Q &amp; A with NHC</a><br/>
+<a href="http://www.aoml.noaa.gov/general/lib/lib1/nhclib/">NHC/AOML Library Branch</a><br/>
+<a href="http://www.aoml.noaa.gov/hrd/tcfaq/tcfaqHED.html">NOAA: Hurricane FAQs</a><br/>
+<a href="/nhop">National Hurricane Operations Plan</a><br/>
+<a href="/nhcexit.php?outurl=http://www.wx4nhc.org">WX4NHC Amateur Radio</a><br/>
+</div>
+<div class="footer-column">
+<a class="footer-column-head" href="http://www.ncep.noaa.gov">NWS Forecast Offices</a><br/>
+<a href="http://www.wpc.ncep.noaa.gov">Weather Prediction Center</a><br/>
+<a href="http://www.spc.noaa.gov">Storm Prediction Center</a><br/>
+<a href="https://ocean.weather.gov">Ocean Prediction Center</a><br/>
+<a href="http://www.weather.gov">Local Forecast Offices</a><br/>
+<br/>
+<a class="footer-column-head" href="/aboutrsmc.shtml">Worldwide Tropical Cyclone Centers</a><br/>
+<a href="/nhcexit.php?outurl=http://www.ec.gc.ca/ouragans-hurricanes/">Canadian Hurricane Centre</a><br/>
+<a href="/nhcexit.php?outurl=http://www.metoc.navy.mil/jtwc/">Joint Typhoon Warning Center</a><br/>
+<a href="/aboutrsmc.shtml">Other Tropical Cyclone Centers</a><br/>
+<a href="/nhcexit.php?outurl=http://severe.worldweather.org">WMO Severe Weather Info Centre</a>
+</div>
+</div>
+</div>
+<!-- legal footer area -->
+<div class="footer-legal">
+<div class="footer-legal-content">
+<div class="footer-legal-gov">
+<a href="http://www.usa.gov"><img alt="usa.gov" height="30" src="/css/images/usa_gov.png" width="110"/></a>
+</div>
+<div class="footer-legal-column" style="width:200px;">
+<p>
+<a href="http://www.commerce.gov">US Dept of Commerce</a><br/>
+<a href="http://www.noaa.gov">National Oceanic and Atmospheric Administration</a><br/>
+                  National Hurricane Center<br/>
+                  11691 SW 17th Street<br/>
+                  Miami, FL, 33165<br/>
+<a href="mailto:nhcwebmaster@noaa.gov">nhcwebmaster@noaa.gov</a>
+</p>
+</div>
+<div class="footer-legal-column" style="width:200px;">
+<p>
+                  Central Pacific Hurricane Center<br/>
+                  2525 Correa Rd<br/>
+                  Suite 250<br/>
+                  Honolulu, HI 96822<br/>
+<a href="mailto:W-HFO.webmaster@noaa.gov">W-HFO.webmaster@noaa.gov</a>
+</p>
+</div>
+<div class="footer-legal-column2">
+<p>
+<a href="http://www.weather.gov/disclaimer">Disclaimer</a><br/>
+<a href="http://www.cio.noaa.gov/Policy_Programs/info_quality.html">Information Quality</a><br/>
+<a href="http://www.weather.gov/help">Help</a><br/>
+<a href="http://www.weather.gov/glossary">Glossary</a>
+</p>
+</div>
+<div class="footer-legal-column3">
+<p>
+<a href="http://www.weather.gov/privacy">Privacy Policy</a><br/>
+<a href="http://www.rdc.noaa.gov/~foia">Freedom of Information Act (FOIA)</a><br/>
+<a href="http://www.weather.gov/about">About Us</a><br/>
+<a href="http://www.weather.gov/careers">Career Opportunities</a>
+</p>
+</div>
+</div>
+</div><!-- end of <div class="footer-legal"> -->
+</div><!-- End of content div -->
+</div><!-- End of center div -->
+<div id="wrap"> </div>
+</body>
+</html>

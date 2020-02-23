@@ -54,9 +54,42 @@ def storeAllLinks(page):
             file.write(link.get("href") + "\n")
 
 
+def visitAll():
+    with open("links.txt") as f:
+        lines = f.readlines()
+        id_ = 0
+        for url in lines:
+            try:
+                response = requests.get(url)
+                if 'html' in response.headers['content-type'] and response.status_code == 200 :
+                    with open(f"data/index{id_}.html", 'w') as html:
+                        soup = BeautifulSoup(response.content, 'html.parser')
+                        html.write(str(soup))
+                        id_ += 1
+            except:
+                pass
 
-html_page = urllib.request.urlopen("http://en.wikipedia.org/wiki/Hurricane_Katrina")
-storeAllLinks(html_page)
+
+def canonicalization(url):
+    ##Steep 1: lowercase
+    cleanUrl = url.lower()
+
+    #Remove port 80 from http URLs, and port 443 from HTTPS URLs
+    if(cleanUrl.endswith(':80')):
+        cleanUrl = cleanUrl[:-3]
+
+    if(cleanUrl.endswith(":243")):
+        cleanUrl = cleanUrl[:-4]
+    else:
+        cleanUrl = cleanUrl
+
+    ##Remove fragment such as .html#contact
+    cleanUrl = cleanUrl.split("#")[0]
+
+    return cleanUrl
+
+##html_page = urllib.request.urlopen("http://en.wikipedia.org/wiki/Hurricane_Katrina")
+##storeAllLinks(html_page)
 ##title = getTitle(html_page)
 ##print(TitleKeyWordsMatch(title))
 
