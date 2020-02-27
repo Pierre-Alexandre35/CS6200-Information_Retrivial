@@ -1,76 +1,25 @@
-import bs4
+
+
 import requests
-import urllib.request
-import re
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-from lxml import html
+import urllib.request
 
-import lxml.html
-
-
-keywords = ["katrina", "hurricane", "cyclogenesis", "Saffir–Simpson", "storm", "camille", " pressure", " wind speed", "Harvey", "cyclone"]
-
-
-## Check if HTTP request is valid (2xx), if not, go to the next url 
-def HTTPErrorFree(url):
-    try:
-        soup = BeautifulSoup(urllib.request.urlopen(url).read())
-        return soup
-    except urllib.error.HTTPError as e:
-        return
+seedUrls = [
+    "http://www.nhc.noaa.gov/outreach/history/", 
+    "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
+    "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
+    "http://en.wikipedia.org/wiki/Hurricane_Katrina"
+    ]
 
 
-
-## Get the html title of a given link
-def getTitle(page):
-    soup = BeautifulSoup(page, 'html.parser')
-    title_data = soup.title.string
-    return title_data
-
-
-
-## Return true if there is a match between the html page title and subject keywords
-def TitleKeyWordsMatch(title):
-    ##Split the title into individual keywords
-    title_words = title.split()
-
-    ##Transform each keyword to lowercase
-    title_words = [word.lower() for word in title_words]
-    print(title_words)
-
-    ##compare title_words and keywords to see if there is a match 
-    matches_number = len(set(title_words) & set(keywords))
-    
-    return matches_number > 0
-
-
-
-## return a list of links for a given html page
-def storeAllLinks(page):
-    soup = BeautifulSoup(html_page)
-    with open('links.txt', 'w') as file:
-        for link in soup.findAll('a', attrs={'href': re.compile("^http://")}):
-            file.write(link.get("href") + "\n")
-
-
-def visitAll():
-    with open("links.txt") as f:
-        lines = f.readlines()
-        id_ = 0
-        for url in lines:
-            try:
-                response = requests.get(url)
-                if 'html' in response.headers['content-type'] and response.status_code == 200 :
-                    with open(f"data/index{id_}.html", 'w') as html:
-                        soup = BeautifulSoup(response.content, 'html.parser')
-                        html.write(str(soup))
-                        id_ += 1
-            except:
-                pass
+def is_absolute(url):
+    return bool(url.startswith("http") or url.startswith("https"))
+    ##return bool(urllib.parse.urlparse(url).netloc)
 
 
 def canonicalization(url):
+    ##print(urllib.parse.urlparse(url).netloc)
+
     ##Steep 1: lowercase
     cleanUrl = url.lower()
 
@@ -86,14 +35,67 @@ def canonicalization(url):
     ##Remove fragment such as .html#contact
     cleanUrl = cleanUrl.split("#")[0]
 
+    ##Remove duplicate "/"
+    cleanUrl = urllib.parse.urljoin(cleanUrl,urllib.parse.urlparse(cleanUrl).path.replace('//','/'))
     return cleanUrl
 
-##html_page = urllib.request.urlopen("http://en.wikipedia.org/wiki/Hurricane_Katrina")
-##storeAllLinks(html_page)
-##title = getTitle(html_page)
-##print(TitleKeyWordsMatch(title))
+def add_incoming_urls(base_url):
+    resp = urllib.request.urlopen(base_url)
+    soup = BeautifulSoup(resp, from_encoding=resp.info().get_param('charset'))
+    for link in soup.find_all('a', href=True):
+        if(not is_absolute(link['href'])):
+            absolute_url = urllib.request.urljoin(base_url, link['href'])
+            print("was relative..." + absolute_url)
+        else:
+            absolute_url = link['href']
+            print("was absolute..." + absolute_url)
+
+        
+
+        ##cleanLink = canonicalization(link['a'])
+        ##print(cleanLink)
+
+
+def urlErrorFree(url):
+    try:
+        resp = requests.head(url)
+        resp.raise_for_status()
+        try: 
+            if not "text/html" in resp.headers["content-type"]:
+                print(url + " - not html")
+                return False
+        except KeyError:
+            print(url + " - key error")
+            return False  
+    except requests.exceptions.HTTPError as err:
+        print(url + " - error: " + err)
+        return False
+    return True
 
 
 
+def crawl(seeds, limit):
+    visited = set()
+    total_crawled = 0
+    for seed in seeds:
+        if urlErrorFree(seed):
+            visited.add(seed)
+            add_incoming_urls(seed)
+    
+    while(total_crawled < limit):
+        total_crawled = total_crawled + 1
+    
+
+
+## Main method that is running the program 
+def main():
+  crawl_limit = 100
+  crawl(seedUrls, crawl_limit)
+  
+
+
+## Run the main() method auto 
+if __name__== "__main__":
+  main()
 
 
