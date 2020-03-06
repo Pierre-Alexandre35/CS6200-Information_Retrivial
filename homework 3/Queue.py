@@ -1,15 +1,10 @@
-class Node:
-
-  def __init__(self, info, priority):
-    self.info = info
-    self.priority = priority
-
 # class for Priority queue 
 class PriorityQueue:
 
   def __init__(self):
     self.queue = list()
     # if you want you can set a maximum size for the queue
+
 
   def insert(self, node):
     # if queue is empty
@@ -20,7 +15,7 @@ class PriorityQueue:
       # traverse the queue to find the right place for new node
       for x in range(0, self.size()):
         # if the priority of new node is smaller
-        if node.priority < self.queue[x].priority:
+        if node.score < self.queue[x].score:
           # if we have traversed the complete queue
           if x == (self.size()-1):
             # add new node at the end
@@ -37,7 +32,7 @@ class PriorityQueue:
 
   def show(self):
     for x in self.queue:
-      print(str(x.info)+" - "+str(x.priority))
+      print(str(x.url)+" - "+str(x.score))
 
   def size(self):
     return len(self.queue)
