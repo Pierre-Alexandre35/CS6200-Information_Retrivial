@@ -1,11 +1,74 @@
-class Buckets:
-    def __init__(self, size):
-        self.size = size
+class Buckets:      
+    firstB = [] 
+    secondB = [] 
+    thirdB = []  
+    fourthB = [] 
+    fifthB = [] 
       
-      
-    def insert(self, node):
-        bucket_val = node.score / self.size
-          
-          
-          
+    def insert_nodes(self, nodes):
+        for newNode in nodes: 
+            if(newNode.score) < 0.2:
+                self.fifthB.insert(0, newNode)
+            elif(newNode.score) < 0.4:
+                self.fourthB.insert(0, newNode)
+            elif(newNode.score) < 0.6:
+                self.thirdB.insert(0, newNode)          
+            elif(newNode.score) < 0.8:
+                self.secondB.insert(0, newNode)   
+            else:
+                self.firstB.insert(0, newNode) 
+
     
+    def pop_nodes(self, size):
+        
+        if(len(self.firstB) > 0):
+            count = 0
+            result = []
+            
+            while(len(self.firstB) > 0 and (count < size)):
+                result.append(self.firstB.pop())
+                count = count + 1
+            return result
+
+        elif(len(self.secondB) > 0):
+            count = 0
+            result = []
+            while(len(self.secondB) > 0 and (count < size)):
+                result.append(self.secondB.pop())
+                count = count + 1
+            return result
+        
+        elif(len(self.thirdB) > 0):
+            count = 0
+            result = []
+            while(len(self.thirdB) > 0 and (count < size)):
+                result.append(self.thirdB.pop())
+                count = count + 1
+
+            return result
+        
+        elif(len(self.fourthB) > 0):
+            count = 0
+            result = []
+            while(len(self.fourthB) > 0 and (count < size)):
+                result.append(self.fourthB.pop())
+                count = count + 1
+
+            return result
+        
+        elif(len(self.fifthB) > 0):
+            count = 0
+            result = []
+            while(len(self.fifthB) > 0 and (count < size)):
+                result.append(self.fifthB.pop())
+                count = count + 1
+            return result
+        else:
+            print("buckets are empty")
+        
+    def resetBuckets(self):
+        self.firstB.clear()
+        self.secondB.clear()
+        self.thirdB.clear()
+        self.fourthB.clear()
+        self.fifthB.clear()

@@ -1,4 +1,3 @@
-
 import csv
 import string
 from urllib.parse import urlparse
@@ -21,15 +20,22 @@ def store_domains_ranking():
 keywords = ["katrina", "hurricane", "hurricanes", "cyclogenesis", "saffir–simpson", "storm", "camille", " pressure", " wind-speed", "harvey", "cyclone", "atlantic", "winds", "wind", "eyewall", "alma", "dennis", "emily", "alice", "otto", "colin", "danielle", "mbar"];
 
 ## Check if the anchor description of a given link matches with the context-based keywords 
-def keywords_match(anchor_description):
+def keywords_match(url, anchor_description):
     url_words = anchor_description.lower().split(" ")
     count = len([word for word in url_words if word in keywords])
+    
+    for word in keywords:
+        if word in url:
+            count = count + 1
+            
     if(count == 0):
         return 0
     if(count == 1):
-        return 0.8
+        return 0.7
     if(count == 2):
-        return 0.9
+        return 0.8
+    if(count == 3):
+        return 0.85
     else:
         return 1
 
@@ -45,11 +51,13 @@ def domain_score(url):
     return domain_authority
 
 
+
 ## giving a href link and it's text description, the get_score method is returning a score from 0 (low relevance) to 1 (high relevance)           
 def get_score(url, url_description):
     keywords_weighted = 0.9
     domain_weighted = 0.1
-    keywords_scr = keywords_match(url_description)
+    keywords_scr = keywords_match(url, url_description)
     domain_scr = domain_score(url)
     final_score = (keywords_scr * keywords_weighted) + (domain_weighted * domain_scr)
-    return str(round(final_score,2))
+    return round(final_score,2)
+

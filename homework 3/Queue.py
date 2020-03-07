@@ -26,7 +26,7 @@ class PriorityQueue:
           self.queue.insert(x, node)
           return True
 
-  def delete(self):
+  def pop(self):
     # remove the first node from the queue
     return self.queue.pop(0)
 

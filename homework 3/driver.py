@@ -8,13 +8,20 @@ from scoring import store_domains_ranking
 import requests as req
 from Node import Node
 from collections import defaultdict
+from Buckets import Buckets as bucket
+
+
 seedUrls = [
     "http://www.nhc.noaa.gov/outreach/history/", 
     "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
     "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
     "http://en.wikipedia.org/wiki/Hurricane_Katrina"
     ]
-inlinks_dic =defaultdict(list)
+
+
+inlinks_dic = defaultdict(list)
+
+buckets = bucket()
 
 ## method to check if a given url is returning a 200 server response. If yes, return true otherwise false. 
 def urlErrorFree(url):
@@ -38,18 +45,22 @@ def update_inlink_dic(from_urls, to_url):
             inlinks_dic[from_url.url].append(to_url)
             
 
-def retrieve_outlinks(base_url):
+def retrieve_outlinks(base_node):
     ##The outgoing urls dictionnary is going to store the href of a given link as a key and it's description as a value
-    outgoing_urls = []
+    outgoing_nodes = set()
+    base_wave = base_node.wave
+    base_url = base_node.url
+    
     resp = requests.urlopen(base_url)
     soup = BeautifulSoup(resp, from_encoding=resp.info().get_param('charset'))
+    
     for link in soup.find_all('a', href=True):
         clean_url = canonical.Canonicalizer().canonicalize(base_url, link['href'])
         score_outgoing_url = get_score(clean_url, link.text)
-        current = Node(clean_url, score_outgoing_url)
-        outgoing_urls.append(current)
-    update_inlink_dic(outgoing_urls, base_url)
-    return outgoing_urls
+        current_node = Node(clean_url, base_wave + 1, score_outgoing_url)
+        if(current_node not in outgoing_nodes):
+            outgoing_nodes.add(current_node)
+    return outgoing_nodes
         
         
     
@@ -64,13 +75,25 @@ def crawl(seeds, limit):
     ## explore error-free seed urls first. 
     for seed in seeds:
         if urlErrorFree(seed):
-            visited.add(seed)
-            nodes = retrieve_outlinks(seed)
-    for node in nodes:
-        print(node.url, node.score)
+            seed_node = Node(seed, 0, 1)
+            nodes = retrieve_outlinks(seed_node)
+            print(seed)
+            print(len(nodes))
+            buckets.insert_nodes(nodes)
+         
+    """   
+    print(len(buckets.firstB))
+    print(len(buckets.secondB))
+    print(len(buckets.thirdB))
+    print(len(buckets.fourthB))
+    print(len(buckets.fifthB))
+    """
+
+            
         
-    for key, value in inlinks_dic.items() :
-        print("key: ", key, " -- value:", value)
+
+
+        
 
     ##while(total_crawled < limit):
         ##total_crawled = total_crawled + 1
