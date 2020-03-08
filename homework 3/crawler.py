@@ -9,19 +9,28 @@ import requests as req
 from Node import Node
 from collections import defaultdict
 from Buckets import Buckets as bucket
+from Pqueue import PriorityQueue as pQueue
+import time
 
+
+#HTTP Error 308: Permanent Redirect - 	http://www.livescience.com/22522-hurricane-katrina-facts.html
 
 seedUrls = [
     "http://www.nhc.noaa.gov/outreach/history/", 
     "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
-    "https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records",
+    "http://www.cnn.com/2013/08/23/us/hurricane-katrina-statistics-fast-facts",
     "http://en.wikipedia.org/wiki/Hurricane_Katrina"
-    ]
+]
 
+##A visited document is a document that has been scored but not yet crawled. The document is stored in one of the buckets. 
+visited = set()
 
 inlinks_dic = defaultdict(list)
 
 buckets = bucket()
+
+pQueue  = pQueue()
+
 
 ## method to check if a given url is returning a 200 server response. If yes, return true otherwise false. 
 def urlErrorFree(url):
@@ -31,14 +40,16 @@ def urlErrorFree(url):
         try: 
             if not "text/html" in resp.headers["content-type"]:
                 print(url + " - not html")
+                print(resp.headers["content-type"])
                 return False
         except KeyError:
             print(url + " - key error")
             return False  
-    except req.exceptions.HTTPError as err:
-        print(url + " - error: " + err)
+    except Exception as e:
+        print(str(e))
         return False
     return True
+
 
 def update_inlink_dic(from_urls, to_url):
     for from_url in from_urls:
@@ -56,38 +67,61 @@ def retrieve_outlinks(base_node):
     
     for link in soup.find_all('a', href=True):
         clean_url = canonical.Canonicalizer().canonicalize(base_url, link['href'])
-        score_outgoing_url = get_score(clean_url, link.text)
-        current_node = Node(clean_url, base_wave + 1, score_outgoing_url)
-        if(current_node not in outgoing_nodes):
+        if clean_url not in visited:
+            visited.add(clean_url)
+            score_outgoing_url = get_score(clean_url, link.text)
+            current_node = Node(clean_url, base_wave + 1, score_outgoing_url)
             outgoing_nodes.add(current_node)
     return outgoing_nodes
         
-        
+
+def insertToQueue(currentBatch):
+    for nodes in currentBatch:
+        pQueue.insert(nodes)
     
 
 ##  We first start with the seed urls. Then crawl highest scores url's from the queue until the limit is reached.
 def crawl(seeds, limit):
-    ##A visited document is a document that has been selected from the queue, processed and stored. Each url visited will be stored in that set in order to avoid to visit the same document > 1. 
-    visited = set()
+    ##A crawled document is a document that has been selected from the queue, processed and stored. Each url visited will be stored in that set in order to avoid to visit the same document > 1. 
+    crawled = set()
     total_crawled = 0
-    
     
     ## explore error-free seed urls first. 
     for seed in seeds:
         if urlErrorFree(seed):
             seed_node = Node(seed, 0, 1)
             nodes = retrieve_outlinks(seed_node)
-            print(seed)
-            print(len(nodes))
+            update_inlink_dic(nodes, seed)
             buckets.insert_nodes(nodes)
+            total_crawled = total_crawled + 1
+
+    
+    while(total_crawled < 300):
+        currentBatch = buckets.pop_nodes(10)
+        insertToQueue(currentBatch)
+        
+        while(pQueue.size() > 0): 
+            time.sleep(1)
+            print("e")
+            current_node = pQueue.pop()
+            if urlErrorFree(current_node.url):
+                try: 
+                    outgoing_nodes = retrieve_outlinks(current_node)
+                    update_inlink_dic(outgoing_nodes, current_node.url)
+                    buckets.insert_nodes(outgoing_nodes)
+                    total_crawled = total_crawled + 1
+                except Exception as e:
+                    print(str(e))
+
+
+                
+            
+            
+        
+                    
+
+
          
-    """   
-    print(len(buckets.firstB))
-    print(len(buckets.secondB))
-    print(len(buckets.thirdB))
-    print(len(buckets.fourthB))
-    print(len(buckets.fifthB))
-    """
 
             
         

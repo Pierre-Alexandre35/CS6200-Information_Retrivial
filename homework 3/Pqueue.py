@@ -29,6 +29,7 @@ class PriorityQueue:
   def pop(self):
     # remove the first node from the queue
     return self.queue.pop(0)
+  
 
   def show(self):
     for x in self.queue:
