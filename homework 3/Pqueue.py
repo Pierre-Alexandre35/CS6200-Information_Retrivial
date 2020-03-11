@@ -5,6 +5,9 @@ class PriorityQueue:
     self.queue = list()
     # if you want you can set a maximum size for the queue
 
+  def insert_list(self, nodes):
+    for node in nodes:
+      self.insert(node)
 
   def insert(self, node):
     # if queue is empty

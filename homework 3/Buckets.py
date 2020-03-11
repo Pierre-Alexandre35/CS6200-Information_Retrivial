@@ -1,3 +1,4 @@
+## class to reprent a set a buckets to organize and manage nodes based on their relevance (score). 
 class Buckets:      
     firstB = [] 
     secondB = [] 
@@ -5,6 +6,12 @@ class Buckets:
     fourthB = [] 
     fifthB = [] 
       
+    def isEmpty(self):
+        if(len(self.firstB) > 0 or len(self.secondB) > 0 or len(self.thirdB) > 0 or len(self.fourthB) > 0 or len(self.fifthB) > 0):
+            return False
+            
+           
+        
     def insert_nodes(self, nodes):
         for newNode in nodes: 
             if(newNode.score) < 0.2:

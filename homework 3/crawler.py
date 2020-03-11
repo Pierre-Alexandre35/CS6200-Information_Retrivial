@@ -27,8 +27,6 @@ visited = set()
 
 inlinks_dic = defaultdict(list)
 
-buckets = bucket()
-
 pQueue  = pQueue()
 
 
@@ -85,33 +83,38 @@ def crawl(seeds, limit):
     ##A crawled document is a document that has been selected from the queue, processed and stored. Each url visited will be stored in that set in order to avoid to visit the same document > 1. 
     crawled = set()
     total_crawled = 0
-    
+    current_bucket = bucket()
+
     ## explore error-free seed urls first. 
     for seed in seeds:
         if urlErrorFree(seed):
             seed_node = Node(seed, 0, 1)
             nodes = retrieve_outlinks(seed_node)
             update_inlink_dic(nodes, seed)
-            buckets.insert_nodes(nodes)
+            current_bucket.insert_nodes(nodes)
             total_crawled = total_crawled + 1
 
     
-    while(total_crawled < 300):
-        currentBatch = buckets.pop_nodes(10)
-        insertToQueue(currentBatch)
+    while(total_crawled < 1000):
+        next_buckets = bucket()
         
-        while(pQueue.size() > 0): 
-            time.sleep(1)
-            print("e")
-            current_node = pQueue.pop()
-            if urlErrorFree(current_node.url):
-                try: 
-                    outgoing_nodes = retrieve_outlinks(current_node)
-                    update_inlink_dic(outgoing_nodes, current_node.url)
-                    buckets.insert_nodes(outgoing_nodes)
-                    total_crawled = total_crawled + 1
-                except Exception as e:
-                    print(str(e))
+        while(not current_bucket.isEmpty()):
+            current_set = current_bucket.pop_nodes(100);
+            pQueue.insert_list(current_set)
+            while(pQueue.size() > 0):
+                current_node = pQueue.pop()
+                time.sleep(0.5)
+                if urlErrorFree(current_node.url):
+                    print(current_node.url)
+                    try: 
+                        outgoing_nodes = retrieve_outlinks(current_node)
+                        update_inlink_dic(outgoing_nodes, current_node.url)
+                        next_buckets.insert_nodes(outgoing_nodes)
+                        total_crawled = total_crawled + 1
+                    except Exception as e:
+                        print(str(e))
+                        
+        current_bucket = next_buckets
 
 
                 

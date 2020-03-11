@@ -1,5 +1,6 @@
 import urllib.request as requests
 
+## Class to transform a given link into a ...
 class Canonicalizer:
     
     ## check if a given url is absolute or relative
@@ -19,7 +20,7 @@ class Canonicalizer:
         ##Remove fragment such as:
         ## www.mywebsite.com/team#john-doe -> www.mywebsite.com/team
         clean_url = clean_url.split("#")[0]
-
+        ##fix it
         ##Remove duplicate "/"
         clean_url = requests.urljoin(clean_url,requests.urlparse(clean_url).path.replace('//','/'))
         return clean_url
