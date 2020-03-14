@@ -11,6 +11,9 @@ from collections import defaultdict
 from Buckets import Buckets as bucket
 from Pqueue import PriorityQueue as pQueue
 import time
+import os
+import Document
+import uuid
 
 
 #HTTP Error 308: Permanent Redirect - 	http://www.livescience.com/22522-hurricane-katrina-facts.html
@@ -26,6 +29,7 @@ seedUrls = [
 visited = set()
 
 inlinks_dic = defaultdict(list)
+outlink_dic = defaultdict(list)
 
 pQueue  = pQueue()
 
@@ -52,6 +56,10 @@ def urlErrorFree(url):
 def update_inlink_dic(from_urls, to_url):
     for from_url in from_urls:
             inlinks_dic[from_url.url].append(to_url)
+
+def update_outlink_dic(from_url, to_urls):
+    for to_url in to_urls:
+        outlink_dic[from_url].append(to_url)
             
 
 def retrieve_outlinks(base_node):
@@ -70,6 +78,7 @@ def retrieve_outlinks(base_node):
             score_outgoing_url = get_score(clean_url, link.text)
             current_node = Node(clean_url, base_wave + 1, score_outgoing_url)
             outgoing_nodes.add(current_node)
+            outlink_dic[base_url].append(clean_url)
     return outgoing_nodes
         
 
@@ -77,7 +86,29 @@ def insertToQueue(currentBatch):
     for nodes in currentBatch:
         pQueue.insert(nodes)
     
+def hash_id(url):
+    return str(uuid.uuid3(uuid.NAMESPACE_URL, url))
 
+def ap89_format(document):
+    (raw, text, title) = document.getHtml()
+    docId = hash_id(document.getDocId())
+    headers = document.getHeader()
+    
+    return f"{os.linesep}".join([
+        "<DOC>",
+        f"<DOCNO>{docId}</DOCNO>",
+        f"<TITLE>{title}</TITLE>",
+        f"<URL>{document.url}</URL>",
+        f"<HEADERS>{headers}</HEADERS>",
+        "<TEXT>",
+        f"{text}",
+        "</TEXT>",
+        "<RAW>",
+        f"{raw}",
+        "</RAW>",
+        f"</DOC>"
+    ])
+        
 ##  We first start with the seed urls. Then crawl highest scores url's from the queue until the limit is reached.
 def crawl(seeds, limit):
     ##A crawled document is a document that has been selected from the queue, processed and stored. Each url visited will be stored in that set in order to avoid to visit the same document > 1. 
@@ -88,6 +119,7 @@ def crawl(seeds, limit):
     ## explore error-free seed urls first. 
     for seed in seeds:
         if urlErrorFree(seed):
+            crawled.add(seed)
             seed_node = Node(seed, 0, 1)
             nodes = retrieve_outlinks(seed_node)
             update_inlink_dic(nodes, seed)
@@ -103,14 +135,20 @@ def crawl(seeds, limit):
             pQueue.insert_list(current_set)
             while(pQueue.size() > 0):
                 current_node = pQueue.pop()
-                time.sleep(0.5)
-                if urlErrorFree(current_node.url):
-                    print(current_node.url)
+                time.sleep(0.2)
+                if urlErrorFree(current_node.url) and current_node.url not in crawled:
                     try: 
                         outgoing_nodes = retrieve_outlinks(current_node)
                         update_inlink_dic(outgoing_nodes, current_node.url)
                         next_buckets.insert_nodes(outgoing_nodes)
                         total_crawled = total_crawled + 1
+                        crawled.add(current_node.url)
+                        document = Document.Document(current_node.url)
+                        formated_doc = ap89_format(document)
+                        temp = str(total_crawled) + ".txt"
+                        with open(temp, 'a') as f:
+                            f.write(formated_doc)
+
                     except Exception as e:
                         print(str(e))
                         
@@ -118,7 +156,8 @@ def crawl(seeds, limit):
 
 
                 
-            
+    
+    
             
         
                     

@@ -1,49 +1,50 @@
-import urllib.request as requests
+import re
+import urllib.request
 from bs4 import BeautifulSoup
+import os
+from scraping import scrap
 
-
-
-one = "the World is realy nice today"
-two = "jame's eat some burger from new-york"
-
-def wordPosition(text):
-    words = text.split(" ")
-    position = 0
-    dic = []
-    for word in words:
-        lowercase_word = word.lower()
-        sequence = (lowercase_word, position)
-        dic.append(sequence)
-        position += 1
-    return dic
-        
-        
-
-def getText(url):
-    html = requests.urlopen(url).read()
-    soup = BeautifulSoup(html)
-
-    for script in soup(["script", "style"]):
-        script.extract()    # rip it out
-
-    # get text
-    text = soup.get_text()
-
-    # break into lines and remove leading and trailing space on each
-    lines = (line.strip() for line in text.splitlines())
-    # break multi-headlines into a line each
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # drop blank lines
-    text = '\n'.join(chunk for chunk in chunks if chunk)
-    return text
+class Document:
+    def __init__(self, url):
+        self.url = url
+        self.request = urllib.request.urlopen(self.url)
     
-content = getText("https://en.wikipedia.org/wiki/Jean_Messiha")
-final = wordPosition(content)
+    def getDocId(self):
+        if self.url.startswith('http'):
+            title = re.sub(r'http://', '', self.url)
+        if self.url.startswith('https'):
+            title = re.sub(r'https://', '', self.url)
+        return title or self.url
+    
+    def getHeader(self):
+        return self.request.headers;
+    
+    def getTitle(self):
+        return "Welcome"
+        ##return self.request.title
+    
+    
+    def getHtml(self):
+        html_doc = self.request.read()
+        title = str(html_doc).split('<title>')[1].split('</title>')[0]
+        text_doc = scrap(html_doc)
+        
+        return (html_doc, text_doc, title)
+    
 
-for val in final:
-    print(val)
+
+
+        
+        
+
+
+docOne = Document("https://en.wikipedia.org/wiki/List_of_Atlantic_hurricane_records")
 
 
 
 
 
+
+
+    
+    

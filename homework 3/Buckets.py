@@ -14,16 +14,16 @@ class Buckets:
         
     def insert_nodes(self, nodes):
         for newNode in nodes: 
-            if(newNode.score) < 0.2:
-                self.fifthB.insert(0, newNode)
-            elif(newNode.score) < 0.4:
-                self.fourthB.insert(0, newNode)
-            elif(newNode.score) < 0.6:
+            if(newNode.score) > 0.90:
+                self.firstB.insert(0, newNode)
+            elif(newNode.score) > 0.80:
+                self.secondB.insert(0, newNode)
+            elif(newNode.score) > 0.65:
                 self.thirdB.insert(0, newNode)          
-            elif(newNode.score) < 0.8:
-                self.secondB.insert(0, newNode)   
-            else:
-                self.firstB.insert(0, newNode) 
+            elif(newNode.score) > 0.50:
+                self.fourthB.insert(0, newNode)   
+            elif(newNode.score) > 0.30:
+                self.fifthB.insert(0, newNode) 
 
     
     def pop_nodes(self, size):
