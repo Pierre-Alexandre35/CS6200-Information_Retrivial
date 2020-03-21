@@ -1,7 +1,7 @@
 import os 
 import re 
 from bs4 import BeautifulSoup 
-
+import zlib
 
 
 ## global dictionnary (shared between all batch) that contains every terms seen 
@@ -13,7 +13,7 @@ extracted_docs = 0
 ## list of idf index 
 idf_indexes = []
 
-batch_size = 1000
+batch_size = 100
 
 ## list of the words that won't be processed in this homework because too commun and may affect our scores such as 'you', 'that' ...
 stopwords = []
@@ -23,6 +23,33 @@ stopwords = []
 token_list = []
 
 current_idf = {}
+
+batch_number = 0
+
+
+def compress(string):
+
+    res = ""
+
+    count = 1
+
+    #Add in first character
+    res += string[0]
+
+    #Iterate through loop, skipping last one
+    for i in range(len(string)-1):
+        if(string[i] == string[i+1]):
+            count+=1
+        else:
+            if(count > 1):
+                #Ignore if no repeats
+                res += str(count)
+            res += string[i+1]
+            count = 1
+    #print last one
+    if(count > 1):
+        res += str(count)
+    return res
 
 
 def storeStopWords():
@@ -106,28 +133,56 @@ def extract_doc_fields(doc):
     tokenize(docId, text_data)
     
 
+def save_in_files(idf, batch_number):
+    ## loop over each key of the idf (term)
+    
+    current_inverted_index = "inverted_indexes/id_" + str(batch_number) + ".txt"
+    current_catalog = "catalogs/ca_" + str(batch_number) + ".txt"
+
+    for key in idf:
+        data = str(idf[key])
+        compressed_index = zlib.compress(data.encode('ISO-8859-1'))
+        with open(current_inverted_index, "ab") as my_file:
+            my_file.write(compressed_index)
+            current_position = my_file.tell()
+        
+        
+        
+        ##with open(current_catalog, "a") as f:
+          ##  f.write(key, ": ", )
+        ##current_catalog_file = open(current_catalog, "wb")
+        
+        
+
+        
+        
+        
+
 ## function to process a single xml page and retrieve all DOCs from that page. no return. 
 def extract_individual_docs(valid_page):
-    batch_number = 0;
+    global batch_number
     global extracted_docs
     global current_idf
     ##find all indiviuals docs in  a given page
     single_docs = valid_page.find_all('DOC')
+    
+
+    
+    
     for document in single_docs:
-        print(extracted_docs)
         ## inverted index for the current batch
         #send the indivual document data to the extract_doc_fields function
         extract_doc_fields(document)
         # #increase the total number of valid documents filtered
         extracted_docs = extracted_docs + 1
-        
-        current_inverted_index = "inverted-index_" + batch_number + ".txt"
-        current_catalog = "catalog_" + batch_number + ".txt"
 
         
         ## Add the idf for the batch that just terminated into the global list of idf
         if(extracted_docs % batch_size == 0):
             batch_number = batch_number + 1
+
+            save_in_files(current_idf, batch_number)
+            current_idf = current_idf + 1
             idf_indexes.append(current_idf)
             current_idf = {}        
         
