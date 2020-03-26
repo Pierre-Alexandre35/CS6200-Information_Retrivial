@@ -1,0 +1,5 @@
+rank 1 - doc_4 - score: 0.1282051282051282
+rank 2 - doc_1 - score: 0.0574712643678161
+rank 3 - doc_2 - score: 0
+rank 4 - doc_3 - score: 0
+rank 5 - doc_5 - score: 0
